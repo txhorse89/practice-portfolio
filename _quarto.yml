@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "cwd-practice-portfolio-ht"
+  title: "HT in PDX"
   navbar:
     left:
       - href: index.qmd
