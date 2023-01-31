@@ -5,7 +5,7 @@ author: "Heather Terada"
 
 I wanted to test out some of the old graphics that I did in Data Viz class to see how they render in a Quarto HTML.
 
-```{r}
+```{r setup, message=FALSE, warning=FALSE, include=FALSE}
 library(tidyverse)
 library(ggdark)
 library(lubridate)
