@@ -1,14 +1,12 @@
 ---
 title: "R-language"
 author: "Heather Terada"
-format: 
-  html:
-    self-contained: true
+
 ---
 
 I wanted to test out some of the old graphics that I did in Data Viz class to see how they render in a Quarto HTML.
 
-```{r setup, message=FALSE, warning=FALSE, include=FALSE}
+```{r setup, message=FALSE, warning=FALSE}
 library(tidyverse)
 library(ggdark)
 library(lubridate)
