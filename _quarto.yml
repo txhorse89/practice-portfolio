@@ -10,6 +10,11 @@ website:
         text: Home
       - about.qmd
       - R-work.qmd
+  sidebar:
+    tools:
+      - icon: linkedin
+        href: https://www.linkedin.com/in/heatherterada/
+      - icon: linkedin
 
 format:
   html:
