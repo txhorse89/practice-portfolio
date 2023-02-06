@@ -1,10 +1,11 @@
 ---
-title: "R-language"
+title: "R Projects"
 author: "Heather Terada"
 
 ---
 
-I wanted to test out some of the old graphics that I did in Data Viz class to see how they render in a Quarto HTML.
+This graphic was an exercise in the Data Visualization class of Fall 2022 where we were asked to recreate a graphic just by examining the graphic and figuring out how to make it ourselves.
+Our group thought the coloring of the California Wildfires and the practice of splitting the months was a useful exercise.
 
 ```{r setup, message=FALSE, warning=FALSE}
 library(tidyverse)
@@ -22,4 +23,26 @@ ggplot(wildfires, aes(plot_date ,year_)) +
   scale_x_date(date_breaks="1 month", 
                date_labels=c("Dec","Jan","Feb","Mar", "Apr","May", "Jun","Jul",
                              "Aug","Sep","Oct","Nov"))
+```
+
+#TidyTuesday has some interesting graphics, and the one that stood out to me was on passwords, since I just studied about this in my Cybersecurity class.
+This week's data is all about passwords. Data is sourced from [Information is Beautiful](https://docs.google.com/spreadsheets/d/1cz7TDhm0ebVpySqbTvrHrD3WpxeyE4hLZtifWSnoNTQ/edit#gid=21), with the graphic coming from the same group [here](https://twitter.com/infobeautiful/status/1216765612439019521?s=20).
+
+```{r}
+# Get the Data
+
+passwords <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv')
+
+# Or read in with tidytuesdayR package (https://github.com/thebioengineer/tidytuesdayR)
+# PLEASE NOTE TO USE 2020 DATA YOU NEED TO UPDATE tidytuesdayR from GitHub
+
+# Either ISO-8601 date or year/week works!
+
+# Install via devtools::install_github("thebioengineer/tidytuesdayR")
+
+tuesdata <- tidytuesdayR::tt_load('2020-01-14') 
+tuesdata <- tidytuesdayR::tt_load(2020, week = 3)
+
+
+passwords <- tuesdata$passwords
 ```

@@ -1,5 +1,6 @@
 ---
-title: "Trying out Quarto for the first time!"
+title: "Heather Terada Portfolio"
 ---
 
 This site is used to test out new skills in Quarto and using R-language.
+
