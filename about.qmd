@@ -1,6 +1,11 @@
 ---
 title: "About Me"
 ---
+::: {layout-ncol=2}
+![](heather.png)
+
+![](jin.png)
+:::
 
 Heather Terada is passionate about cross-cultural communications and bridging the relationship between the US and Japan. Gaining an interest in Japanese culture and language during her undergraduate degree in Asian Studies, Heather decided to earn her Masters in International Relations at Waseda University in Japan where she fell in love with the culture and decided to begin her career full time. 
 

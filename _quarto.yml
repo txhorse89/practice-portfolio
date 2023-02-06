@@ -13,10 +13,8 @@ website:
 
 format:
   html:
-    theme: cyborg
+    theme: quartz
     css: styles.css
     toc: true
     code-fold: true
-
-
 

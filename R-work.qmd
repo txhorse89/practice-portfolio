@@ -26,23 +26,14 @@ ggplot(wildfires, aes(plot_date ,year_)) +
 ```
 
 #TidyTuesday has some interesting graphics, and the one that stood out to me was on passwords, since I just studied about this in my Cybersecurity class.
-This week's data is all about passwords. Data is sourced from [Information is Beautiful](https://docs.google.com/spreadsheets/d/1cz7TDhm0ebVpySqbTvrHrD3WpxeyE4hLZtifWSnoNTQ/edit#gid=21), with the graphic coming from the same group [here](https://twitter.com/infobeautiful/status/1216765612439019521?s=20).
+This week's data is all about passwords. Data is sourced from <a href="https://docs.google.com/spreadsheets/d/1cz7TDhm0ebVpySqbTvrHrD3WpxeyE4hLZtifWSnoNTQ/edit#gid=21" target="_blank">Information is Beautiful</a>, with the graphic coming from the same group <a href="https://twitter.com/infobeautiful/status/1216765612439019521?s=20" target="_blank">here</a>.
+
+![](passwords.png){width=1000}
+[Source](https://xkcd.com/936/)
 
 ```{r}
-# Get the Data
-
-passwords <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv')
-
-# Or read in with tidytuesdayR package (https://github.com/thebioengineer/tidytuesdayR)
-# PLEASE NOTE TO USE 2020 DATA YOU NEED TO UPDATE tidytuesdayR from GitHub
-
-# Either ISO-8601 date or year/week works!
-
-# Install via devtools::install_github("thebioengineer/tidytuesdayR")
-
-tuesdata <- tidytuesdayR::tt_load('2020-01-14') 
-tuesdata <- tidytuesdayR::tt_load(2020, week = 3)
+passwords <- read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-01-14/passwords.csv')
 
 
-passwords <- tuesdata$passwords
+
 ```
