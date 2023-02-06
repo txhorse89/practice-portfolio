@@ -3,4 +3,5 @@ title: "Heather Terada Portfolio"
 ---
 
 This site is used to test out new skills in Quarto and using R-language.
-
+I think my homepage should be full of awesome R memes, like this one:
+![](modeling.png)
