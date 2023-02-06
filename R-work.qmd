@@ -3,6 +3,8 @@ title: "R Projects"
 author: "Heather Terada"
 
 ---
+::: {.panel-tabset}
+## Data Viz Class Practice
 
 This graphic was an exercise in the Data Visualization class of Fall 2022 where we were asked to recreate a graphic just by examining the graphic and figuring out how to make it ourselves.
 Our group thought the coloring of the California Wildfires and the practice of splitting the months was a useful exercise.
@@ -24,6 +26,8 @@ ggplot(wildfires, aes(plot_date ,year_)) +
                date_labels=c("Dec","Jan","Feb","Mar", "Apr","May", "Jun","Jul",
                              "Aug","Sep","Oct","Nov"))
 ```
+
+## TidyTuesday
 
 #TidyTuesday has some interesting graphics, and the one that stood out to me was on passwords, since I just studied about this in my Cybersecurity class.
 This week's data is all about passwords. Data is sourced from <a href="https://docs.google.com/spreadsheets/d/1cz7TDhm0ebVpySqbTvrHrD3WpxeyE4hLZtifWSnoNTQ/edit#gid=21" target="_blank">Information is Beautiful</a>, with the graphic coming from the same group <a href="https://twitter.com/infobeautiful/status/1216765612439019521?s=20" target="_blank">here</a>.
@@ -104,3 +108,5 @@ big_plot <- ggraph(graph, layout = 'dendrogram', circular = TRUE) +
 ```
 
 ![](tw3_plot.png)
+
+:::
