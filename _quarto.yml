@@ -8,6 +8,8 @@ website:
     left:
       - icon: linkedin
         href: https://www.linkedin.com/in/heatherterada/
+      - icon: github
+        href: https://github.com/txhorse89/
       - href: index.qmd
         text: Home
       - about.qmd
