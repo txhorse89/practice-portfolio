@@ -4,30 +4,64 @@ author: "Heather Terada"
 
 ---
 ::: {.panel-tabset}
-## Data Viz Class Practice
+#### Data Viz Class Practice
 
 This graphic was an exercise in the Data Visualization class of Fall 2022 where we were asked to recreate a graphic just by examining the graphic and figuring out how to make it ourselves.
 Our group thought the coloring of the California Wildfires and the practice of splitting the months was a useful exercise.
 
 ```{r setup, message=FALSE, warning=FALSE}
+# libraries and set up
 library(tidyverse)
 library(ggdark)
 library(lubridate)
-wildfires<-readr::read_csv("https://raw.githubusercontent.com/BuzzFeedNews/2018-07-wildfire-trends/master/data/calfire_frap.csv") %>%
-mutate(plot_date = as.Date(format(alarm_date,"2017-%m-%d")))
+library(scales)
+library(DT)
+wildfires<-readr::read_csv("https://raw.githubusercontent.com/BuzzFeedNews/2018-07-wildfire-trends/master/data/calfire_frap.csv") %>% mutate(plot_date = as.Date(format(alarm_date,"2017-%m-%d"))) 
 
-ggplot(wildfires, aes(plot_date ,year_)) +
-  geom_point(aes(size=gis_acres, alpha = 0.3), color = "orange") +
-  dark_theme_gray() +
-  theme(legend.position="none") +
-  scale_y_reverse(limits = c(2010,1950))+
-  labs(y = "", x = "") +
+# making a table
+datatable(data = wildfires, filter = "top", options = list(pageLength = 10, autoWidth = TRUE)) %>% 
+  formatRound('gis_acres', 2) %>% formatRound('shape_area', 2) %>% formatRound('shape_length', 2) %>%
+  formatStyle('objectid', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('year_', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('state', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('agency', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('unit_id', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('fire_name', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('inc_num', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('alarm_date', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('cont_date', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('cause', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('comments', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('report_ac', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('gis_acres', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('c_method', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('objective', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('fire_num', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('shape_length', color = 'black', backgroundColor = 'orange') %>%
+  formatStyle('shape_area', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('plot_date', color = 'black', backgroundColor = 'orange') 
+
+# graphic
+ggplot(wildfires, aes(x=plot_date, y=year_, size=shape_area))+
+  geom_point(alpha=0.4, color="orange")+
+  scale_y_reverse(n.breaks=4, labels=c("1950","1970","1990","2010"))+
+  ggtitle("Big fires have gotten more common.")+
+  theme(plot.background = element_rect(fill = "black"),
+        panel.background = element_rect(fill="black"),
+        panel.grid=element_blank(),
+        panel.grid.major.y = element_line(color="grey"),
+        panel.grid.minor.y=element_line(color="grey"),
+        axis.title=element_blank(),
+        axis.text=element_text(color="lightgrey", face="bold"),
+        legend.position = "none",
+        title=element_text(color="lightgrey"))+
   scale_x_date(date_breaks="1 month", 
                date_labels=c("Dec","Jan","Feb","Mar", "Apr","May", "Jun","Jul",
-                             "Aug","Sep","Oct","Nov"))
+                             "Aug","Sep","Oct","Nov"))+
+  scale_size(range=c(0.1,9))
 ```
 
-## TidyTuesday
+#### TidyTuesday
 
 #TidyTuesday has some interesting graphics, and the one that stood out to me was on passwords, since I just studied about this in my Cybersecurity class.
 This week's data is all about passwords. Data is sourced from <a href="https://docs.google.com/spreadsheets/d/1cz7TDhm0ebVpySqbTvrHrD3WpxeyE4hLZtifWSnoNTQ/edit#gid=21" target="_blank">Information is Beautiful</a>, with the graphic coming from the same group <a href="https://twitter.com/infobeautiful/status/1216765612439019521?s=20" target="_blank">here</a>.
@@ -38,7 +72,6 @@ This week's data is all about passwords. Data is sourced from <a href="https://d
 Credit goes to Jake Kaupp with his donut/dendogram:
 
 ```{r message=FALSE, warning=FALSE}
-library(tidyverse)
 library(janitor)
 library(here)
 library(ggraph)
@@ -104,9 +137,25 @@ big_plot <- ggraph(graph, layout = 'dendrogram', circular = TRUE) +
         axis.text = element_blank()) +
   expand_limits(x = c(-1.5, 1.5), y = c(-1.5, 1.5)) +
   coord_equal() 
-
 ```
 
 ![](tw3_plot.png)
+#### Pinot Noir
+
+There are certain regions that have the best overall price versus point comparison.
+
+```{r message=FALSE, warning=FALSE}
+library(flextable)
+library(flexpivot)
+library(ftExtra)
+pinot <- read_rds("C:\\data\\pinot.rds")
+
+pinot2 <- pinot %>% select(-description)
+
+pinot2 %>% 
+    pivot_table("province", "year") %>% 
+    pivot_format() %>% 
+    theme_vanilla()
+```
 
 :::
