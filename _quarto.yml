@@ -18,7 +18,7 @@ website:
 
 format:
   html:
-    theme: cyborg
+    theme: cerulean
     css: styles.css
     toc: true
     code-fold: true

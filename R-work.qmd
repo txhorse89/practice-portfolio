@@ -22,23 +22,23 @@ wildfires<-readr::read_csv("https://raw.githubusercontent.com/BuzzFeedNews/2018-
 datatable(data = wildfires, filter = "top", options = list(pageLength = 10, autoWidth = TRUE)) %>% 
   formatRound('gis_acres', 2) %>% formatRound('shape_area', 2) %>% formatRound('shape_length', 2) %>%
   formatStyle('objectid', color = 'black', backgroundColor = 'orange') %>% 
-  formatStyle('year_', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('year_', color = 'black', backgroundColor = 'white') %>% 
   formatStyle('state', color = 'black', backgroundColor = 'orange') %>% 
-  formatStyle('agency', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('agency', color = 'black', backgroundColor = 'white') %>% 
   formatStyle('unit_id', color = 'black', backgroundColor = 'orange') %>% 
-  formatStyle('fire_name', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('fire_name', color = 'black', backgroundColor = 'white') %>% 
   formatStyle('inc_num', color = 'black', backgroundColor = 'orange') %>% 
-  formatStyle('alarm_date', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('alarm_date', color = 'black', backgroundColor = 'white') %>% 
   formatStyle('cont_date', color = 'black', backgroundColor = 'orange') %>% 
-  formatStyle('cause', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('cause', color = 'black', backgroundColor = 'white') %>% 
   formatStyle('comments', color = 'black', backgroundColor = 'orange') %>% 
-  formatStyle('report_ac', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('report_ac', color = 'black', backgroundColor = 'white') %>% 
   formatStyle('gis_acres', color = 'black', backgroundColor = 'orange') %>% 
-  formatStyle('c_method', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('c_method', color = 'black', backgroundColor = 'white') %>% 
   formatStyle('objective', color = 'black', backgroundColor = 'orange') %>% 
-  formatStyle('fire_num', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('fire_num', color = 'black', backgroundColor = 'white') %>% 
   formatStyle('shape_length', color = 'black', backgroundColor = 'orange') %>%
-  formatStyle('shape_area', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('shape_area', color = 'black', backgroundColor = 'white') %>% 
   formatStyle('plot_date', color = 'black', backgroundColor = 'orange') 
 
 # graphic
