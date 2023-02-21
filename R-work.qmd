@@ -4,7 +4,7 @@ author: "Heather Terada"
 
 ---
 ::: {.panel-tabset}
-#### Data Viz Class Practice
+## Data Viz Class Practice
 
 This graphic was an exercise in the Data Visualization class of Fall 2022 where we were asked to recreate a graphic just by examining the graphic and figuring out how to make it ourselves.
 Our group thought the coloring of the California Wildfires and the practice of splitting the months was a useful exercise.
@@ -61,7 +61,7 @@ ggplot(wildfires, aes(x=plot_date, y=year_, size=shape_area))+
   scale_size(range=c(0.1,9))
 ```
 
-#### TidyTuesday
+## TidyTuesday
 
 #TidyTuesday has some interesting graphics, and the one that stood out to me was on passwords, since I just studied about this in my Cybersecurity class.
 This week's data is all about passwords. Data is sourced from <a href="https://docs.google.com/spreadsheets/d/1cz7TDhm0ebVpySqbTvrHrD3WpxeyE4hLZtifWSnoNTQ/edit#gid=21" target="_blank">Information is Beautiful</a>, with the graphic coming from the same group <a href="https://twitter.com/infobeautiful/status/1216765612439019521?s=20" target="_blank">here</a>.
@@ -140,7 +140,10 @@ big_plot <- ggraph(graph, layout = 'dendrogram', circular = TRUE) +
 ```
 
 ![](tw3_plot.png)
-#### Pinot Noir
+:::
+
+::: {.panel-tabset}
+## Pinot Noir
 
 There are certain regions that have the best overall price versus point comparison.
 
@@ -157,5 +160,35 @@ pinot2 %>%
     pivot_format() %>% 
     theme_vanilla()
 ```
+## Wine around the World
+```{r message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+library(plotly)
 
+BigWines2 = read_csv("C:\\Users\\tx_ho\\OneDrive\\Desktop\\WU_MSDS\\DATA_502\\Homework\\WorldWineMap Final\\data\\BigWines2.csv")
+pal <- c("#660000", "#FF6666", "#CCCCCC" , "#FFCC33")
+pal_labels <- c("Red", "Rose", "Sparkling", "White")
+
+p <- 
+  ggplot(BigWines2, aes(x = Year, y = Rating, color = Type)) +
+  geom_point() +
+  scale_fill_identity() +
+  ggtitle("Wineries from around the world") +
+  theme_minimal() +
+  scale_colour_manual(values = pal) +
+  geom_hline(yintercept = mean(BigWines2$Rating, na.rm=TRUE),lty = 'dashed', lwd = 0.5) +
+  xlab("Year") +
+  ylab("Ratings")
+
+fig <- plot_ly(
+  data = BigWines2, 
+  x = ~Year, 
+  y = ~Rating, 
+  color = ~Type, 
+  colors = pal,
+  text = ~paste("Country: ", Country, ", Year: ", Year, ", Rating: ", Rating))
+
+fig
+```
 :::
