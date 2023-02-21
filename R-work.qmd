@@ -161,6 +161,10 @@ pinot2 %>%
     theme_vanilla()
 ```
 ## Wine around the World
+
+Although wines in France, Spain, and Italy have been well known for their rankings, other countries are becoming more popular over the years.
+There are a lot of whites that have high rankings, yet affordable for the typical household.
+
 ```{r message=FALSE, warning=FALSE}
 library(ggplot2)
 library(dplyr)
