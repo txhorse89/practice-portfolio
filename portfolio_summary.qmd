@@ -1,0 +1,22 @@
+---
+title: "Portfolio Summary"
+author: "Heather Terada"
+format: 
+  revealjs:
+    multiplex: true
+    preview-links: true
+    theme: league
+    scrollable: true
+    footer: "Heather Terada Portfolio Summary"
+    chalkboard: true
+    html-math-method: katex
+    incremental: true
+    slide-number: c/t
+    transition: convex
+    code-fold: true
+    code-tools: true
+    slide-tone: true
+    embed-resources: true
+---
+
+

@@ -14,6 +14,7 @@ website:
         text: Home
       - about.qmd
       - R-work.qmd
+      - portfolio_summary.qmd
 
 
 format:

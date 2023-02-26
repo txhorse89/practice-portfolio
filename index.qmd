@@ -1,5 +1,5 @@
 ---
-title: "Heather Terada Portfolio"
+title: "Where Data Science Nerds Come Together"
 ---
 
 This site is used to test out new skills in Quarto and using R-language.
