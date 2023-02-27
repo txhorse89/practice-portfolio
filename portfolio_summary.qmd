@@ -5,18 +5,222 @@ format:
   revealjs:
     multiplex: true
     preview-links: true
-    theme: league
+    theme: sky
     scrollable: true
     footer: "Heather Terada Portfolio Summary"
-    chalkboard: true
     html-math-method: katex
     incremental: true
     slide-number: c/t
-    transition: convex
+    transition: concave
     code-fold: true
+    code-overflow: wrap
     code-tools: true
-    slide-tone: true
     embed-resources: true
+    fig-responsive: true
 ---
 
+---
 
+## Where it all started...
+
+- Willamette University, Bachelor of Arts in Asian Studies (Japanese language) 
+Salem, Oregon, September 2008 - May 2012
+
+- Master's of Arts in International Relations 
+Tokyo, Japan, October 2012 - September 2014
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](taiko.png)
+:::
+
+::: {.column width="50%"}
+![](waseda2.png)
+![](volunteer.png)
+:::
+
+::::
+
+---
+
+## From Project Manager to Data Scientist
+
+- Rakuten Travel, Marketing and Web Design
+Tokyo, Japan, October 2014 - August 2016
+
+- Sony Corporation, Risk and Control Department
+Tokyo, Japan, September 2016 - February 2018
+
+- MetLife Japan, Application Development
+Tokyo, Japan, March 2018 - June 2022
+
+- Sony Corporation of America, Risk and Control Department
+Remote Oregon, July 2022 - present
+
+---
+
+## New skills in SQL
+
+
+
+---
+
+## New skills in R: Tidyverse, ggplot, Plotly, Shiny, Machine Learning
+
+::: {.panel-tabset}
+
+# Tidyverse & ggplot
+
+```{r setup, message=FALSE, warning=FALSE}
+# libraries and set up
+library(tidyverse)
+library(ggdark)
+library(lubridate)
+library(scales)
+library(DT)
+wildfires<-readr::read_csv("https://raw.githubusercontent.com/BuzzFeedNews/2018-07-wildfire-trends/master/data/calfire_frap.csv") %>% mutate(plot_date = as.Date(format(alarm_date,"2017-%m-%d"))) 
+
+# making a table
+datatable(data = wildfires, filter = "top", options = list(pageLength = 10, autoWidth = TRUE)) %>% 
+  formatRound('gis_acres', 2) %>% formatRound('shape_area', 2) %>% formatRound('shape_length', 2) %>%
+  formatStyle('objectid', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('year_', color = 'black', backgroundColor = 'white') %>% 
+  formatStyle('state', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('agency', color = 'black', backgroundColor = 'white') %>% 
+  formatStyle('unit_id', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('fire_name', color = 'black', backgroundColor = 'white') %>% 
+  formatStyle('inc_num', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('alarm_date', color = 'black', backgroundColor = 'white') %>% 
+  formatStyle('cont_date', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('cause', color = 'black', backgroundColor = 'white') %>% 
+  formatStyle('comments', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('report_ac', color = 'black', backgroundColor = 'white') %>% 
+  formatStyle('gis_acres', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('c_method', color = 'black', backgroundColor = 'white') %>% 
+  formatStyle('objective', color = 'black', backgroundColor = 'orange') %>% 
+  formatStyle('fire_num', color = 'black', backgroundColor = 'white') %>% 
+  formatStyle('shape_length', color = 'black', backgroundColor = 'orange') %>%
+  formatStyle('shape_area', color = 'black', backgroundColor = 'white') %>% 
+  formatStyle('plot_date', color = 'black', backgroundColor = 'orange') 
+
+# graphic
+ggplot(wildfires, aes(x=plot_date, y=year_, size=shape_area))+
+  geom_point(alpha=0.4, color="orange")+
+  scale_y_reverse(n.breaks=4, labels=c("1950","1970","1990","2010"))+
+  ggtitle("Big fires have gotten more common.")+
+  theme(plot.background = element_rect(fill = "black"),
+        panel.background = element_rect(fill="black"),
+        panel.grid=element_blank(),
+        panel.grid.major.y = element_line(color="grey"),
+        panel.grid.minor.y=element_line(color="grey"),
+        axis.title=element_blank(),
+        axis.text=element_text(color="lightgrey", face="bold"),
+        legend.position = "none",
+        title=element_text(color="lightgrey"))+
+  scale_x_date(date_breaks="1 month", 
+               date_labels=c("Dec","Jan","Feb","Mar", "Apr","May", "Jun","Jul",
+                             "Aug","Sep","Oct","Nov"))+
+  scale_size(range=c(0.1,9))
+```
+
+# Plotly & Shiny
+``` {r}
+
+```
+
+# Machine Learning
+
+``` {r}
+# libraries and setup
+library(tidyverse)
+library(caret)
+library(rpart)
+wine = read_rds("pinot.rds") 
+
+# feature engineering
+wine_words <- function(df, j = 450, stem=F){ 
+  library(tidytext)
+  library(SnowballC)
+  data(stop_words)
+
+  words <- df %>%
+    unnest_tokens(word, description) %>%
+    anti_join(stop_words) %>% # get rid of stop words
+    filter(!(word %in% c("wine","pinot","vineyard","ber", "flav")))
+  
+  if(stem){
+    words <- words %>% 
+      mutate(word = wordStem(word))
+  }
+  
+  words <- words %>% 
+    count(id, word) %>% 
+    group_by(id) %>% 
+    mutate(exists = (n>0)) %>% 
+    ungroup %>% 
+    group_by(word) %>% 
+    mutate(total = sum(n)) %>% 
+    filter(total > j) %>% 
+    pivot_wider(id_cols = id, names_from = word, values_from = exists, values_fill = list(exists=0)) %>% 
+    right_join(select(df,id,province)) %>% 
+    select(-id) %>% 
+    mutate(across(-province, ~replace_na(.x, F)))
+}
+
+wino <- wine_words(wine, j=450, stem=T)
+
+wino %>% head(10) %>% select(1:5,province)
+
+# create model
+ctrl <- trainControl(method = "cv", number = 5)
+
+set.seed(504) 
+
+wine_index <- createDataPartition(wino$province, p = 0.80, list = FALSE)
+train <- wino[ wine_index, ]
+test <- wino[-wine_index, ]
+
+fit <- train(province ~ .,
+             data = train, 
+             method = "rf",
+             trControl = ctrl,
+             metric = "Kappa")
+
+# set new seed to test
+set.seed(1504) 
+
+wine_index <- createDataPartition(wino$province, p = 0.80, list = FALSE)
+train <- wino[ wine_index, ]
+test <- wino[-wine_index, ]
+
+# fit final test
+fit_final <- train(province ~ .,
+             data = train, 
+             method = "rf",
+             tuneGrid=fit$bestTune) 
+# final results
+
+confusionMatrix(predict(fit_final, test),factor(test$province))
+```
+
+:::
+---
+
+## Next steps
+
+- Applying new skills to current work
+
+- Future roles in Data Science
+
+:::: {.columns}
+
+::: {.column width="50%"}
+![](ds.png)
+:::
+
+::: {.column width="50%"}
+![](audit2.png)
+:::
+
+::::
