@@ -60,12 +60,6 @@ Remote Oregon, July 2022 - present
 
 ---
 
-## New skills in SQL
-
-
-
----
-
 ## New skills in R: Tidyverse, ggplot, Plotly, Shiny, Machine Learning
 
 ::: {.panel-tabset}
