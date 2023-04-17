@@ -60,12 +60,72 @@ Remote Oregon, July 2022 - present
 
 ---
 
-## New skills in R: Shiny
+## New skills in R: ggplot & Plotly
 
 ::: {.panel-tabset}
 
-# Shiny
+# ggplot
 
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(ggdark)
+library(lubridate)
+library(scales)
+library(DT)
+wildfires<-readr::read_csv("https://raw.githubusercontent.com/BuzzFeedNews/2018-07-wildfire-trends/master/data/calfire_frap.csv") %>% mutate(plot_date = as.Date(format(alarm_date,"2017-%m-%d")))
+
+ggplot(wildfires, aes(x=plot_date, y=year_, size=shape_area))+
+  geom_point(alpha=0.4, color="orange")+
+  scale_y_reverse(n.breaks=4, labels=c("1950","1970","1990","2010"))+
+  ggtitle("Big fires have gotten more common.")+
+  theme(plot.background = element_rect(fill = "black"),
+        panel.background = element_rect(fill="black"),
+        panel.grid=element_blank(),
+        panel.grid.major.y = element_line(color="grey"),
+        panel.grid.minor.y=element_line(color="grey"),
+        axis.title=element_blank(),
+        axis.text=element_text(color="lightgrey", face="bold"),
+        legend.position = "none",
+        title=element_text(color="lightgrey"))+
+  scale_x_date(date_breaks="1 month", 
+               date_labels=c("Dec","Jan","Feb","Mar", "Apr","May", "Jun","Jul",
+                             "Aug","Sep","Oct","Nov"))+
+  scale_size(range=c(0.1,9))
+```
+
+
+# Plotly
+
+```{r message=FALSE, warning=FALSE}
+library(ggplot2)
+library(dplyr)
+library(plotly)
+
+BigWines2 = read_csv("C:\\Users\\tx_ho\\OneDrive\\Desktop\\WU_MSDS\\DATA_502\\Homework\\WorldWineMap Final\\data\\BigWines2.csv")
+pal <- c("#660000", "#FF6666", "#CCCCCC" , "#FFCC33")
+pal_labels <- c("Red", "Rose", "Sparkling", "White")
+
+p <- 
+  ggplot(BigWines2, aes(x = Year, y = Rating, color = Type)) +
+  geom_point() +
+  scale_fill_identity() +
+  ggtitle("Wineries from around the world") +
+  theme_minimal() +
+  scale_colour_manual(values = pal) +
+  geom_hline(yintercept = mean(BigWines2$Rating, na.rm=TRUE),lty = 'dashed', lwd = 0.5) +
+  xlab("Year") +
+  ylab("Ratings")
+
+fig <- plot_ly(
+  data = BigWines2, 
+  x = ~Year, 
+  y = ~Rating, 
+  color = ~Type, 
+  colors = pal,
+  text = ~paste("Country: ", Country, ", Year: ", Year, ", Rating: ", Rating))
+
+fig
+```
 
 :::
 ---
